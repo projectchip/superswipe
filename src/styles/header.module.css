@@ -10,6 +10,7 @@
 
 .header {
     font-family: Kumbh_Sans !important;
+    font-family: Kumbh_Sans !important;
     min-height: fit-content;
     position: relative;
     display: flex;
@@ -27,6 +28,7 @@
 }
 
 .titleMedium {
+    font-family: Kumbh_Sans !important;
     margin-bottom: 8px;
     font-family: Satoshi,sans-serif;
     color: #6b7194;
@@ -38,6 +40,7 @@
 }
 
 .heroParagraph {
+    font-family: Kumbh_Sans !important;
     max-width: 560px;
     margin-top: 16px;
     margin-bottom: 0;

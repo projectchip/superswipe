@@ -53,8 +53,6 @@ const SelectComponent = ({title, setterFunction, preChecked}
 		useEffect(()=>{
 			const clearBtn = document.getElementById('clear-filter-btn');
 			clearBtn?.addEventListener('click', clearFilters);
-
-			// return clearBtn?.removeEventListener('click', clearFilters);
 		}, [])
 
 		const clearFilters = () => {

@@ -1,4 +1,15 @@
+@font-face {
+    font-family: 'Kumbh_Sans';
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Black.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Light.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Bold.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
 .dataCard {
+    font-family: Kumbh_Sans !important;
     position: relative;
     height: 100%;
     padding: 24px 24px 32px;
@@ -16,6 +27,11 @@
     box-shadow: 51px 51px 132px -16px rgba(49,51,114,.08);
 }
 
+.dataImage:hover {
+    transition: transform .6s ease;
+    transform: scale(1.05);
+}
+
 .dataImage img {
     border: 0;
     vertical-align: middle;
@@ -24,6 +40,7 @@
 }
 
 .dataContent {
+    font-family: Kumbh_Sans !important;
     position: relative;
     max-width: 80%;
     margin-top: 24px;
@@ -33,6 +50,7 @@
 }
 
 .dataContentTitle {
+    font-family: Kumbh_Sans !important;
     margin-bottom: 8px;
     font-family: Satoshi,sans-serif;
     color: #160042;
@@ -43,6 +61,7 @@
 }
 
 .dataContent p {
+    font-family: Kumbh_Sans !important;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;

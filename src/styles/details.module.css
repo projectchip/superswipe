@@ -1,0 +1,15 @@
+.detailsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.textContainer {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: black 3px solid;
+}
+

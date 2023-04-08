@@ -66,11 +66,6 @@ const FilterComponent = () => {
                 <SelectComponent title={'Industry'} setterFunction={handleFilterIndustry} preChecked={[]}/>
             </div>
         </div>
-        {/* <div>
-                {query}
-                {filterCategroy.length}
-                {filterIndustry}
-        </div> */}
         </>
     )
 }

@@ -1,5 +1,15 @@
+@font-face {
+    font-family: 'Kumbh_Sans';
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Black.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Light.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Bold.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 
 .filterBar {
+    font-family: Kumbh_Sans !important;
     display: flex;
     margin-bottom: 30px;
     padding: 16px;
@@ -14,6 +24,7 @@
 }
 
 .filterSearch {
+    font-family: Kumbh_Sans !important;
     min-width: 300px;
     flex: 1;
     margin-bottom: 0;
@@ -21,6 +32,7 @@
 
 
 .searchField {
+    font-family: Kumbh_Sans !important;
     width: 100%;
     min-height: 50px;
     margin-bottom: 0;
@@ -59,6 +71,7 @@
 }
 
 .selectComp {
+    font-family: Kumbh_Sans !important;
     width: 100%;
     min-height: 48px;
     margin-bottom: 0;
@@ -109,6 +122,7 @@
 }
 
 .clearButton {
+    font-family: Kumbh_Sans !important;
     display: flex;
     padding: 12px 12px 12px 24px;
     justify-content: space-between;
