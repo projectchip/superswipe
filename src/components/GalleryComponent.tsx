@@ -10,12 +10,12 @@ const GalleryComponent = () => {
             thumbnail: '/placeholder.png'
         },
         {
-            original: '/SuperSwipeLogo.png',
-            thumbnail: '/SuperSwipeLogo.png'
+            original: 'testImage/.png',
+            thumbnail: '/testImage.png'
         },
         {
-            original: '/placeholder.png',
-            thumbnail: '/placeholder.png'
+            original: '/testImage2.png',
+            thumbnail: '/testImage2.png'
         },
     ]
     return (
