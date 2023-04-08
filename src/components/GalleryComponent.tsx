@@ -10,8 +10,8 @@ const GalleryComponent = () => {
             thumbnail: '/placeholder.png'
         },
         {
-            original: 'testImage/.png',
-            thumbnail: '/testImage.png'
+            original: 'testImage.jpg',
+            thumbnail: '/testImage.jpg'
         },
         {
             original: '/testImage2.png',
