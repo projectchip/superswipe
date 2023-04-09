@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "../styles/filterBar.module.css"
 import PropTypes from 'prop-types';
 import {styled} from '@mui/material/styles';
@@ -45,33 +45,33 @@ const CSSSelect = styled(Select)({
 	},
 });
 
-const SelectComponent = ({title, setterFunction, preChecked}
+const SelectComponent = ({title, setterFunction, labels}
 	:
-	{title: string, setterFunction: Function, preChecked: Array<string>|string}) => {
-		const [selected, setSelected] = React.useState<string[]>([]);
-
+	{title: string, setterFunction: Function, labels: string}) => {
+		const [selected, setSelected] = useState<string[]>([]);
+		const [selectData, setSelectData] = useState<Array<string>>(['', '']);
+		
 		useEffect(()=>{
 			const clearBtn = document.getElementById('clear-filter-btn');
 			clearBtn?.addEventListener('click', clearFilters);
 		}, [])
+
+		useEffect(()=>{
+			getSelectLabels();
+		}, [selectData])
+
+		const getSelectLabels = async () => {
+			const response = await fetch(`/api/${labels}`);
+			const data = await response.json();
+			console.log('R', data);
+			setSelectData(data.data);
+		}
 
 		const clearFilters = () => {
 			console.log('Clear Clicked');
 			setSelected([]);
 		}
 
-		const names = [
-			'Oliver Hansen',
-			'Van Henry',
-			'April Tucker',
-			'Ralph Hubbard',
-			'Omar Alexander',
-			'Carlos Abbott',
-			'Miriam Wagner',
-			'Bradley Wilkerson',
-			'Virginia Andrews',
-			'Kelly Snyder',
-		];
 		const ITEM_HEIGHT = 48;
 		const ITEM_PADDING_TOP = 8;
 		const MenuProps = {
@@ -109,12 +109,12 @@ const SelectComponent = ({title, setterFunction, preChecked}
 					renderValue={(selected: any) => selected.join(', ')}
 					MenuProps={MenuProps}
 				>
-					{names.map((name) => (
+					{selectData.map((name) => {return (
 						<MenuItem key={name} value={name}>
 						<Checkbox checked={selected.indexOf(name) > -1} />
 						<ListItemText primary={name} />
 						</MenuItem>
-					))}
+					)})}
 				</CSSSelect>
 			</FormControl>
 		</div>

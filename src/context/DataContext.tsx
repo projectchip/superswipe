@@ -1,7 +1,7 @@
 import { createContext, ReactElement, useReducer, useCallback, useContext } from "react";
 
 type StateType = {
-    data: Array<string>,
+    data: Array<string>|string,
     query: string | Array<string>,
     filterCategroy: Array<string> | string,
     filterIndustry: Array<string> | string,
@@ -25,7 +25,7 @@ const enum REDUCER_ACTION_TYPE {
 const reducer = (state: StateType, action: ReducerAction): StateType => {
     switch (action.type) {
         case REDUCER_ACTION_TYPE.REQUSTDATA:
-            return initState;
+            return {...state, data: [...state.data, ...action.payload]};
         case REDUCER_ACTION_TYPE.SETQUERYSTRING:
             return {...state, query: action.payload};
         case REDUCER_ACTION_TYPE.SETFILTERCATEGORY:
@@ -43,9 +43,11 @@ const reducer = (state: StateType, action: ReducerAction): StateType => {
 const useDataContext = (initState: StateType) => {
     const [state, dispatch] = useReducer(reducer, initState);
 
-    const requestDataUpdate = useCallback(() => {
-        //TODO
-        //THIS WILL MAKE REQUEST TO DB TO GET DATA>>>
+    const requestDataUpdate = useCallback((data: Array<any>) => {
+        dispatch({
+            type: REDUCER_ACTION_TYPE.REQUSTDATA,
+            payload: data,
+        })
     }, [])
 
     const setQueryString = useCallback((searchString: string) => {
@@ -72,6 +74,7 @@ const useDataContext = (initState: StateType) => {
     const clearFilters = useCallback(()=> {
         //TODO
     }, [])
+
 
     return {state, requestDataUpdate, setQueryString, setFilterCategory, setFilterIndustry, clearFilters}
 }

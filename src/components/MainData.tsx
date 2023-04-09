@@ -1,12 +1,44 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styles from '../styles/mainData.module.css';
 import DataCard from "./DataCard";
 import FilterComponent from "./FilterComponent";
 import { useDataAndFilterContext } from "../context/DataContext";
 import Chip from '@mui/material/Chip';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MainData = () => {
-    const {data, filterCategroy, filterIndustry} = useDataAndFilterContext();
+    const {data, query, filterCategroy, filterIndustry} = useDataAndFilterContext();
+    const [totalPages, setTotalPages] = useState(1);
+    const [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(()=>{
+        getSearchResult(1);
+    }, [query, filterCategroy, filterIndustry])
+
+    const getSearchResult = async (offset: number) => {
+        setLoading(true);
+        const response = await fetch(
+            `/api/getData`,
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({query, offset: offset-1, filterCategroy, filterIndustry})
+            });
+        const result: any = await response.json();
+        setListings(result.data);
+        setLoading(false);
+        setTotalPages(result.total);
+    };
+
+    const handlePageOffset = (event, page: number) => {
+        getSearchResult(page);
+    };
 
     return (
         <div className={styles.mainDiv}>
@@ -35,22 +67,46 @@ const MainData = () => {
                         }
                     </div>
                 </div>
-                <div className={styles.dataContainer}>
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
-                    <DataCard />
+                    {
+                        loading ?
+                        <Box sx={{display: 'flex', flexGrow: 1, justifyContent: 'center'}}>
+                            <CircularProgress />
+                        </Box>
+                        :
+                        <div className={styles.dataContainer}>
+                            {
+                                listings.length > 0 ?
+                                listings.map((item) => {
+                                    return (
+                                        <DataCard key={item._id} data={item}/>
+                                    )
+                                })
+                                :
+                                <h1 style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    position: 'absolute',
+                                    width: '100%',
+                                }}>No Record Found</h1>
+                            }
+                        </div>
+                    }
                 </div>
+            <div style={{flexGrow: 1, alignItems: 'center',
+                justifyContent: 'center', display: 'flex',
+                margin: '20px',
+            }}>
+                {
+                    loading || listings.length == 0 ? null :
+                    <Stack spacing={2}>
+                        <Pagination
+                            count={totalPages}
+                            color="primary"
+                            size='medium'
+                            onChange={handlePageOffset}
+                        />
+                    </Stack>
+                }
             </div>
         </div>
     )

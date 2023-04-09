@@ -5,13 +5,15 @@ import { CssTextField } from './CustomButton';
 import { Chip } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { useDataAndFilterContext } from '../context/DataContext';
+import getCategories from '../pages/api/getCategories';
+import getIndustries from '../pages/api/getIndustries';
 
 
 const FilterComponent = () => {
+    const [categroyLabels, setCategoryLabels] = useState([]);
+    const [industryLables, setIndustryLables] = useState([]);
     const {
         query,
-        filterCategroy,
-        filterIndustry,
         setQueryString,
         setFilterCategory,
         setFilterIndustry
@@ -30,6 +32,26 @@ const FilterComponent = () => {
         setFilterIndustry([]);
         setQueryString('');
     }
+
+    let inputTimer: any;
+
+    // useEffect(() => {
+    //     getCategoriesLabels();
+    //     getIndustriesLabels();
+    // }, [])
+
+    // const getCategoriesLabels = async () => {
+    //     const response = await fetch('/api/getCategories');
+    //     const labels = await response.json();
+    //     setCategoryLabels(labels.data);
+    // }
+    // const getIndustriesLabels = async () => {
+    //     const response = await fetch('/api/getIndustries');
+    //     const labels = await response.json();
+    //     setIndustryLables(labels.data);
+    // }
+
+
 
     return (
         <>
@@ -52,18 +74,23 @@ const FilterComponent = () => {
                         label='Search'
                         placeholder='Search...'
                         id='search-field'
-                        value={query}
+                        // value={query}
+                        onKeyDown={() => {
+                            clearTimeout(inputTimer)
+                        }}
                         onChange={(e) => {
-                            setQueryString(e.target.value);
+                            inputTimer = setTimeout(() => {
+                                setQueryString(e.target.value);
+                            }, 2000)
                         }}
                     />
                 </div>
             </div>
             <div className={styles.filterSearch}>
-                <SelectComponent title={'Category'} setterFunction={handleFilterCategory} preChecked={[]}/>
+                <SelectComponent title={'Category'} setterFunction={handleFilterCategory} labels={'getCategories'} />
             </div>
             <div className={styles.filterSearch}>
-                <SelectComponent title={'Industry'} setterFunction={handleFilterIndustry} preChecked={[]}/>
+                <SelectComponent title={'Industry'} setterFunction={handleFilterIndustry} labels={'getIndustries'} />
             </div>
         </div>
         </>

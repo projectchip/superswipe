@@ -2,20 +2,20 @@ import React from "react";
 import styles from '../styles/dataCard.module.css'
 import { Image } from "react-bootstrap";
 
-const DataCard = () => {
+const DataCard = ({data}: {data: any}) => {
     return (
         <div role="listitem">
             <a href="/details?id=123456" style={{textDecoration: 'none', color: 'black'}}>
                 <div className={styles.dataCard}>
                     <div className={styles.dataImage}>
-                        <Image src="/placeholder.png" alt="Place Holder for Item Image" />
+                        <Image src={data.image} alt="Place Holder for Item Image" />
                     </div>
                     <div className={styles.dataContent}>
                         <div className={styles.dataContentTitle}>
-                            Test Title For now and to check the long title.
+                            {data.title}
                         </div>
                         <p>
-                            Category - Industry
+                            {data.category} - {data.industry}
                         </p>
                     </div>
                 </div>
