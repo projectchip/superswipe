@@ -6,7 +6,7 @@ import Link from 'next/link';
 const DataCard = ({data}: {data: any}) => {
     return (
         <div role="listitem">
-            <Link href={`/details?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
+            <Link href={`/information?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
                 <div className={styles.dataCard}>
                     <div className={styles.dataImage}>
                         <Image src={data.image} alt="Place Holder for Item Image" />
