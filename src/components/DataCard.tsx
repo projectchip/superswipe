@@ -5,7 +5,7 @@ import { Image } from "react-bootstrap";
 const DataCard = ({data}: {data: any}) => {
     return (
         <div role="listitem">
-            <a href={`/details?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
+            <a href={`details?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
                 <div className={styles.dataCard}>
                     <div className={styles.dataImage}>
                         <Image src={data.image} alt="Place Holder for Item Image" />
