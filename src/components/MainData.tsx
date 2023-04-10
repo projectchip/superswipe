@@ -24,19 +24,24 @@ const MainData = () => {
 
     const getSearchResult = async (offset: number) => {
         setLoading(true);
-        const response = await fetch(
-            `/api/getData`,
-            {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({query, offset: offset-1, filterCategroy, filterIndustry})
-            });
-        const result: any = await response.json();
-        setListings(result.data);
-        setLoading(false);
-        setTotalPages(result.total);
+        let newData: any = [];
+        const startAt = (offset - 1) * 5;
+        for (let i=startAt; i < (startAt + 5); i++) {
+            const response = await fetch(
+                `/api/getData`,
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({query, offset: i, filterCategroy, filterIndustry})
+                });
+            const result: any = await response.json();
+            newData = [...newData, ...result.data];
+            setListings(newData);
+            setLoading(false);
+            setTotalPages(result.total);
+        }
     };
 
     const handlePageOffset = (event: any, page: number) => {

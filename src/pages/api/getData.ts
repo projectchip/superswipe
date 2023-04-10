@@ -36,6 +36,8 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	if (finalFilter.length > 0 ) {
 		filters = {$and: finalFilter}
 	}
+
+	console.log(req.body.offset);
 	
 	let total = 0;
 	let data = null;
@@ -54,55 +56,8 @@ const getDataFromDb = async (req: NextApiRequest) => {
 			timestamp: 1,
 			image: 1,
 	}).toArray();
-    // } else {
-	// 	data = await db.collection('data').aggregate([
-	// 		{
-	// 			$search: {
-	// 				index: 'searchIndex',
-	// 				text: {
-	// 				query: serachCriteria,
-	// 				path: [
-	// 					'title', 'description', 'category', 'industry', 'author', 'tags',
-	// 				],
-	// 				},
-	// 			},
-	// 		}, {
-	// 			'$sort': {
-	// 				'timestamp': -1,
-	// 			},
-	// 		}, {
-	// 			$skip: RESULTSPERPAGE * (req.body.offset),
-	// 		}, {
-	// 			$limit: RESULTSPERPAGE,
-	// 		}, {
-	// 			$project: {
-	// 				_id: 1,
-	// 				title: 1,
-	// 				category: 1,
-	// 				industry: 1,
-	// 				timestamp: 1,
-	// 				image: 1,
-	// 			},
-	// 		},
-	// 	]).toArray();
 
-	// 	const size = await db.collection('data').aggregate([
-	// 		{
-	// 		  $search: {
-	// 			index: 'searchIndex',
-	// 			text: {
-	// 			  query: serachCriteria,
-	// 			  path: [
-	// 				'title', 'description', 'category', 'industry', 'author', 'tags',
-	// 			  ],
-	// 			},
-	// 		  },
-	// 		},
-	// 	]).toArray();
-	// 	total = size.length;
-	// }
-
-	total = total/RESULTSPERPAGE > 1 ? Math.ceil(total / RESULTSPERPAGE) : 1;
+	total = total/25 > 1 ? Math.ceil(total / 25) : 1;
 	return {data, total};
 }
 
