@@ -7,7 +7,7 @@ export const config = {
 	},
 }
 
-const RESULTSPERPAGE = 15;
+const RESULTSPERPAGE = 10;
 
 const getDataFromDb = async (req: NextApiRequest) => {
     const {db} = await connectToDatabase();
@@ -101,8 +101,8 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	// 	]).toArray();
 	// 	total = size.length;
 	// }
-	console.log(total);
-	total = total/15 > 1 ? Math.ceil(total / 15) : 1;
+	
+	total = total/RESULTSPERPAGE > 1 ? Math.ceil(total / RESULTSPERPAGE) : 1;
 	return {data, total};
 }
 
