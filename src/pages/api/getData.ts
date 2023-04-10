@@ -3,11 +3,11 @@ import { connectToDatabase } from "@/src/util/mongoDb"
 
 export const config = {
 	api: {
-		responseLimit: '12mb',
+		responseLimit: '8mb',
 	},
 }
 
-const RESULTSPERPAGE = 20;
+const RESULTSPERPAGE = 15;
 
 const getDataFromDb = async (req: NextApiRequest) => {
     const {db} = await connectToDatabase();
@@ -102,7 +102,7 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	// 	total = size.length;
 	// }
 	console.log(total);
-	total = total/20 > 1 ? Math.ceil(total / 20) : 1;
+	total = total/15 > 1 ? Math.ceil(total / 15) : 1;
 	return {data, total};
 }
 
