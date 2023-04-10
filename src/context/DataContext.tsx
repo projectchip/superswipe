@@ -24,8 +24,6 @@ const enum REDUCER_ACTION_TYPE {
 
 const reducer = (state: StateType, action: ReducerAction): StateType => {
     switch (action.type) {
-        case REDUCER_ACTION_TYPE.REQUSTDATA:
-            return {...state, data: [...state.data, ...action.payload]};
         case REDUCER_ACTION_TYPE.SETQUERYSTRING:
             return {...state, query: action.payload};
         case REDUCER_ACTION_TYPE.SETFILTERCATEGORY:
@@ -44,10 +42,7 @@ const useDataContext = (initState: StateType) => {
     const [state, dispatch] = useReducer(reducer, initState);
 
     const requestDataUpdate = useCallback((data: Array<any>) => {
-        dispatch({
-            type: REDUCER_ACTION_TYPE.REQUSTDATA,
-            payload: data,
-        })
+        console.log('Requesting...')
     }, [])
 
     const setQueryString = useCallback((searchString: string) => {

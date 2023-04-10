@@ -4,7 +4,7 @@ import mainCard from '../styles/mainData.module.css'
 import detailStyles from '../styles/details.module.css';
 import Chip from '@mui/material/Chip';
 
-const ContentComponent = ({content} : {content: Array<object>}) => {
+const ContentComponent = ({content} : {content: Array<any>}) => {
 
     return (
         <div className={mainCard.mainCard} style={{marginTop: '-30px', marginBottom: '20px', paddingTop: '70px'}}>
@@ -37,7 +37,7 @@ const ContentComponent = ({content} : {content: Array<object>}) => {
                 <div role="listitem">
                     <strong>Tags : </strong>
                     {
-                        content[0].tags.split('#').map((tag) => {
+                        content[0].tags.split('#').map((tag: string) => {
                             if (tag.length > 0) return (<Chip style={{margin: '2px'}} label={tag} key={tag} variant="outlined" />)
                         })
                     }

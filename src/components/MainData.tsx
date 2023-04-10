@@ -39,7 +39,7 @@ const MainData = () => {
         setTotalPages(result.total);
     };
 
-    const handlePageOffset = (event, page: number) => {
+    const handlePageOffset = (event: any, page: number) => {
         getSearchResult(page);
     };
 
@@ -79,7 +79,7 @@ const MainData = () => {
                         <div className={styles.dataContainer}>
                             {
                                 listings.length > 0 ?
-                                listings.map((item) => {
+                                listings.map((item: any) => {
                                     return (
                                         <DataCard key={item._id} data={item}/>
                                     )
