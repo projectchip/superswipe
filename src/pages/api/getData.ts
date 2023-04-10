@@ -7,7 +7,7 @@ export const config = {
 	},
 }
 
-const RESULTSPERPAGE = 10;
+const RESULTSPERPAGE = 5;
 
 const getDataFromDb = async (req: NextApiRequest) => {
     const {db} = await connectToDatabase();
@@ -101,7 +101,7 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	// 	]).toArray();
 	// 	total = size.length;
 	// }
-	
+
 	total = total/RESULTSPERPAGE > 1 ? Math.ceil(total / RESULTSPERPAGE) : 1;
 	return {data, total};
 }
