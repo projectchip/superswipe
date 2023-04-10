@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/src/util/mongoDb"
 
 export const config = {
 	api: {
-		responseLimit: '8mb',
+		responseLimit: '12mb',
 	},
 }
 
