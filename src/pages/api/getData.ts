@@ -18,11 +18,11 @@ const getDataFromDb = async (req: NextApiRequest) => {
 
 	if (req.body.query.length > 0 ) {
 		finalFilter.push({$or: [
-			{ title: { $regex: query} },
-			{ description: { $regex: query} },
-			{ source: { $regex: query} },
-			{ author: { $regex: query} },
-			{tags: { $regex: query} }
+			{ title: { $regex: query, $options: "i" } },
+			{ description: { $regex: query, $options: "i" } },
+			{ source: { $regex: query, $options: "i" } },
+			{ author: { $regex: query, $options: "i" } },
+			{tags: { $regex: query, $options: "i" } }
 		]});
 	}
 
