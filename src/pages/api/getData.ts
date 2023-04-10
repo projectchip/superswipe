@@ -36,8 +36,6 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	if (finalFilter.length > 0 ) {
 		filters = {$and: finalFilter}
 	}
-
-	console.log(req.body.offset);
 	
 	let total = 0;
 	let data = null;

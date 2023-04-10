@@ -1,11 +1,12 @@
 import React from "react";
 import styles from '../styles/dataCard.module.css'
 import { Image } from "react-bootstrap";
+import Link from 'next/link';
 
 const DataCard = ({data}: {data: any}) => {
     return (
         <div role="listitem">
-            <a href={`details?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
+            <Link href={`/details?id=${data._id}`} style={{textDecoration: 'none', color: 'black'}}>
                 <div className={styles.dataCard}>
                     <div className={styles.dataImage}>
                         <Image src={data.image} alt="Place Holder for Item Image" />
@@ -19,7 +20,7 @@ const DataCard = ({data}: {data: any}) => {
                         </p>
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     )
 }

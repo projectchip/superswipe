@@ -27,15 +27,7 @@ const MainData = () => {
         let newData: any = [];
         const startAt = (offset - 1) * 5;
         for (let i=startAt; i < (startAt + 5); i++) {
-            const response = await fetch(
-                `/api/getData`,
-                {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({query, offset: i, filterCategroy, filterIndustry})
-                });
+            const response = await sendRequest(i);
             const result: any = await response.json();
             newData = [...newData, ...result.data];
             setListings(newData);
@@ -43,6 +35,18 @@ const MainData = () => {
             setTotalPages(result.total);
         }
     };
+
+    const sendRequest = async (i: number) => {
+        return await (fetch(
+            `/api/getData`,
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({query, offset: i, filterCategroy, filterIndustry})
+            }));
+    }
 
     const handlePageOffset = (event: any, page: number) => {
         getSearchResult(page);
