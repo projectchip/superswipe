@@ -18,6 +18,6 @@
       "@/src/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/util/mongoDb.js", "src/pages/api/getData.js", "src/components/GalleryComponent.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/util/mongoDb.js", "src/pages/api/getData.js", "src/components/GalleryComponent.js", "src/pages/details.js", "src/pages/admin.js"],
   "exclude": ["node_modules"]
 }

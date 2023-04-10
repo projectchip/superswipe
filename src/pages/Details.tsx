@@ -6,14 +6,14 @@ import Footer from "../components/Footer";
 const Details = () => {
     return (
         <>
-      <main className="flex flex-col p-24"
-        style={{padding: 0}}
-      >
-        <NavbarComponent />
-        <BodyComponent />
-        <Footer />
-      </main>
-    </>
+			<main className="flex flex-col p-24"
+			style={{padding: 0}}
+			>
+				<NavbarComponent />
+				<BodyComponent />
+				<Footer />
+			</main>
+    	</>
     );
 };
 
