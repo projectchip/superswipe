@@ -49,6 +49,7 @@ const SelectComponent = ({title, setterFunction, labels}
 	:
 	{title: string, setterFunction: Function, labels: string}) => {
 		const [selected, setSelected] = useState<string[]>([]);
+		const [loading, setLoading] = useState(true);
 		const [selectData, setSelectData] = useState<Array<string>>(['', '']);
 		
 		useEffect(()=>{
@@ -58,17 +59,16 @@ const SelectComponent = ({title, setterFunction, labels}
 
 		useEffect(()=>{
 			getSelectLabels();
-		}, [selectData])
+		}, [])
 
 		const getSelectLabels = async () => {
 			const response = await fetch(`/api/${labels}`);
 			const data = await response.json();
-			console.log('R', data);
-			setSelectData(data.data);
+			setLoading(false);
+			setSelectData(data);
 		}
 
 		const clearFilters = () => {
-			console.log('Clear Clicked');
 			setSelected([]);
 		}
 
@@ -96,27 +96,30 @@ const SelectComponent = ({title, setterFunction, labels}
 
     return (
 		<div className={styles.selectComp}>
-			<FormControl sx={{ width: '100%' }}>
-				<InputLabel id="multiple-checkbox-label">{title}</InputLabel>
-				<CSSSelect
-					labelId="multiple-checkbox-label"
-					id="multiple-checkbox"
-					multiple
-					placeholder={title}
-					value={selected}
-					onChange={(e:SelectChangeEvent<any>)=>handleChange(e)}
-					input={<CSSOutlinedInput />}
-					renderValue={(selected: any) => selected.join(', ')}
-					MenuProps={MenuProps}
-				>
-					{selectData.map((name) => {return (
-						<MenuItem key={name} value={name}>
-						<Checkbox checked={selected.indexOf(name) > -1} />
-						<ListItemText primary={name} />
-						</MenuItem>
-					)})}
-				</CSSSelect>
-			</FormControl>
+			{
+				loading ? null :
+				<FormControl sx={{ width: '100%' }}>
+					<InputLabel id="multiple-checkbox-label">{title}</InputLabel>
+					<CSSSelect
+						labelId="multiple-checkbox-label"
+						id="multiple-checkbox"
+						multiple
+						placeholder={title}
+						value={selected}
+						onChange={(e:SelectChangeEvent<any>)=>handleChange(e)}
+						input={<CSSOutlinedInput />}
+						renderValue={(selected: any) => selected.join(', ')}
+						MenuProps={MenuProps}
+					>
+						{selectData.map((name) => {return (
+							<MenuItem key={name} value={name}>
+							<Checkbox checked={selected.indexOf(name) > -1} />
+							<ListItemText primary={name} />
+							</MenuItem>
+						)})}
+					</CSSSelect>
+				</FormControl>
+			}
 		</div>
     );
 }

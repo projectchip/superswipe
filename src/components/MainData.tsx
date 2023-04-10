@@ -12,12 +12,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 const MainData = () => {
     const {data, query, filterCategroy, filterIndustry} = useDataAndFilterContext();
     const [totalPages, setTotalPages] = useState(1);
+    const [offset, setOffset] = useState(1);
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         getSearchResult(1);
     }, [query, filterCategroy, filterIndustry])
+
+    useEffect(()=>{}, [offset, totalPages]);
 
     const getSearchResult = async (offset: number) => {
         setLoading(true);
@@ -96,17 +99,15 @@ const MainData = () => {
                 justifyContent: 'center', display: 'flex',
                 margin: '20px',
             }}>
-                {
-                    loading || listings.length == 0 ? null :
-                    <Stack spacing={2}>
-                        <Pagination
-                            count={totalPages}
-                            color="primary"
-                            size='medium'
-                            onChange={handlePageOffset}
-                        />
-                    </Stack>
-                }
+                <Stack spacing={2}>
+                    <Pagination
+                        count={totalPages}
+                        color="primary"
+                        size='medium'
+                        disabled={loading || listings.length == 0}
+                        onChange={handlePageOffset}
+                    />
+                </Stack>
             </div>
         </div>
     )

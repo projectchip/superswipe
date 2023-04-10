@@ -11,12 +11,16 @@
 .dataCard {
     font-family: Kumbh_Sans !important;
     position: relative;
+    min-height: 450px;
     height: 100%;
     padding: 24px 24px 32px;
     border: 1px solid #f3f5fb;
     border-radius: 12px;
     background-color: #fff;
     transition: background-color .3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .dataImage {
@@ -25,6 +29,8 @@
     border: 2px solid #fff;
     border-radius: 8px;
     box-shadow: 51px 51px 132px -16px rgba(49,51,114,.08);
+    display: flex;
+    justify-content: center;
 }
 
 .dataImage:hover {

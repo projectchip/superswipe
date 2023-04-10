@@ -1,6 +1,7 @@
 import React from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import BodyComponent from "../components/BodyComponent";
+import Footer from "../components/Footer";
 
 const details = () => {
     return (
@@ -10,15 +11,7 @@ const details = () => {
       >
         <NavbarComponent />
         <BodyComponent />
-        <div style={{
-          backgroundColor: '#f7f8fd',
-          width: '100%',
-          height: '50px',
-          color: 'gray',
-          alignItems: 'center',
-          justifyContent: 'center',
-          display: 'flex'
-        }}>© Copyright  2023</div>
+        <Footer />
       </main>
     </>
     );

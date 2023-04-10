@@ -25,7 +25,6 @@ const getDataFromDb = async (req: NextApiRequest) => {
 			{tags: { $regex: query} }
 		]});
 	}
-	console.log(finalFilter);
 
 	if (req.body.filterCategroy.length > 0 ){
 		finalFilter.push({'category': {$in: req.body.filterCategroy}});
@@ -37,7 +36,7 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	if (finalFilter.length > 0 ) {
 		filters = {$and: finalFilter}
 	}
-		
+	
 	let total = 0;
 	let data = null;
 	total = await db.collection('data')
@@ -102,8 +101,8 @@ const getDataFromDb = async (req: NextApiRequest) => {
 	// 	]).toArray();
 	// 	total = size.length;
 	// }
-	
-	total = total/20 > 0 ? Math.ceil(total / 20) : 1;
+	console.log(total);
+	total = total/20 > 1 ? Math.ceil(total / 20) : 1;
 	return {data, total};
 }
 
