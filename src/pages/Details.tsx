@@ -3,7 +3,7 @@ import NavbarComponent from "../components/NavbarComponent";
 import BodyComponent from "../components/BodyComponent";
 import Footer from "../components/Footer";
 
-const details = () => {
+const Details = () => {
     return (
         <>
       <main className="flex flex-col p-24"
@@ -18,4 +18,4 @@ const details = () => {
 };
 
 
-export default details;
+export default Details;
