@@ -15,6 +15,7 @@ const BodyComponent = () => {
     // console.log(router.query.id);
 
     useEffect(()=> {
+        document.title = 'Listing Details';
         if (!queryId) {
             return;
         }

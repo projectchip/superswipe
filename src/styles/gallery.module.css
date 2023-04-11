@@ -1,4 +1,15 @@
+@font-face {
+    font-family: 'Kumbh_Sans';
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Black.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Light.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Bold.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
 .imageGalleryThumbnails {
+    font-family: Kumbh_Sans !important;
     cursor: pointer;
     text-align: center;
     display: flex;

@@ -17,6 +17,7 @@ const MainData = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
+        document.title = 'Home';
         getSearchResult(1);
     }, [query, filterCategroy, filterIndustry])
 

@@ -2,6 +2,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Button } from '@mui/material';
+import Link from 'next/link';
 
 const Footer = () => {
     return (
@@ -25,7 +26,9 @@ const Footer = () => {
                 justifyContent: 'space-between',
             }}>
                 <div>
-                    <Button variant="text">Admin</Button>
+                    <Link href="/admin" style={{textDecoration: 'none', borderRadius: '20px'}}>
+                        <Button variant="text">Admin</Button>
+                    </Link>
                 </div>
                 <div>
                 © Copyright  2023

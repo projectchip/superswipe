@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'Kumbh_Sans';
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Black.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Light.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Bold.ttf');
+    src: url('../asset/Kumbh_Sans/static/KumbhSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.signupFormDiv {
+    font-family: Kumbh_Sans !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputFields {
+	margin-top: 5% !important;
+}
+
+.entryformInput {
+	margin-top: 2% !important;
+	margin-bottom: 2% !important;
+	padding: 5px !important;
+}
+
+.formContainer {
+	background-color: #f7f8fd;
+	width: 90%;
+	padding: 3%;
+	border-radius: 10%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.formContainer form {
+	width: 100%;
+}
+
+.listingFormDiv {
+	display: flex;
+	width: 100%;
+	padding: 0 6% 0 6%;
+	justify-content: center;
+	align-items: center;
+}
+
+.textArea {
+	min-height: 150px;
+	padding: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	background: transparent;
+	border-radius: 5px;
+	border: rgba(196 ,196 ,196, 1) 1px solid;
+
+}
