@@ -40,7 +40,7 @@ const BodyComponent = () => {
     }
 
     return (
-        <div className={styles.header} style={{height: "80vh"}}>
+        <div className={styles.header} style={{minHeight: "80vh"}}>
             {
                 content.length > 0 ? 
                 <>
