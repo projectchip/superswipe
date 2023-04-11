@@ -12,6 +12,8 @@ const BodyComponent = () => {
     const queryId = router.query.id;
     const [content, setContent] = useState([]);
     const [photos, setPhotos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [imagesLoading, setImagesLoading] = useState(true);
     // console.log(router.query.id);
 
     useEffect(()=> {
@@ -26,12 +28,14 @@ const BodyComponent = () => {
     const getListingDetails = async () => {
         const conents = await fetch(`/api/listingDetails?id=${router.query.id}`)
         const result = await conents.json();
+        setLoading(false);
         setContent(result);
     }
 
     const getListingImages = async () => {
         const conents = await fetch(`/api/listingPhotos?id=${router.query.id}`)
         const result = await conents.json();
+        setImagesLoading(false);
         setPhotos(result);
     }
 
@@ -42,9 +46,15 @@ const BodyComponent = () => {
                 <>
                     <ContentComponent content={content} />
                     {
-                        photos.length > 0 ?
-                        <GalleryComponent photos={photos}/> : 
-                        <h2>No photos uploaded</h2>
+                        !imagesLoading ? 
+                            photos.length > 0 ?
+                            <GalleryComponent photos={photos}/> : 
+                            <h2>No photos uploaded</h2>
+                        :
+                        <Box sx={{display: 'flex', flexGrow: 1, justifyContent: 'center'}}>
+                            <CircularProgress />
+                        </Box>
+                        
                     }
                 </> :
                     <Box sx={{display: 'flex', flexGrow: 1, justifyContent: 'center'}}>

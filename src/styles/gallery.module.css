@@ -16,3 +16,11 @@
     justify-content: center;
     white-space: nowrap;
 }
+
+.imageGallery {
+    /* display: flex;
+    justify-content: center; */
+    /* align-items: center; */
+    /* width: 100%;
+    height: 100%; */
+}

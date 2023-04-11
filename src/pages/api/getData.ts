@@ -65,8 +65,12 @@ const getData =async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(400).json({message: 'Invalid Request Method'})
     };
 
-    const {data, total} = await getDataFromDb(req);
-    res.status(200).json({data, total})
+	try {
+		const {data, total} = await getDataFromDb(req);
+		res.status(200).json({data, total})
+	} catch (err) {
+        res.status(500).json({message: err})
+    }
 }
 
 

@@ -2,7 +2,7 @@
 // import imageCompression from 'browser-image-compression';
 import Compressor from "compressorjs";
 import { useRouter } from "next/router";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useState } from "react";
 
 const TITLELIMIT = 64;
 const DESCRIPTIONLIMIT = 2048;
@@ -17,26 +17,58 @@ const getBase64Image = (file: any, setBase64Image: Function) => {
   };
 };
 
-const handleImage = async (e: any, setImage: Function, setBase64Image: Function) => {
-  const file: any = e?.target.files;
-  setImage(file[0]);
+const handleMultipleImageUpload = (files: any, listingId: string) =>{
+	console.log('Total', files.length);
+	// const images = [];
+	for (const file of files) {
+		new Compressor(file, {
+			quality: 0.7,
+			mimeType: 'image/jpeg',
+			success(result : Blob) {
+				const compressedFile = new File([result], file.name, {
+				type: result.type,
+				lastModified: Date.now(),
+				});
+				const reader = new FileReader();
+				reader.readAsDataURL(compressedFile);
+				reader.onload = () => {
+					fetch('/api/uploadPhoto', {
+						method: 'POST',
+						headers: {
+						'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({listingId: listingId, image : reader.result}),
+					});
+				};
+			},
+			error(err: any) {
+			  console.error(err.message);
+			},
+		  });
+	}
+};
 
-  new Compressor(file[0], {
-    quality: 0.6,
-    // maxWidth: 750, 
-    // maxHeight: 750,
-    mimeType: 'image/jpeg',
-    success(result : Blob) {
-      const compressedFile = new File([result], file.name, {
-        type: result.type,
-        lastModified: Date.now(),
-      });
-      getBase64Image(compressedFile, setBase64Image);
-    },
-    error(err: any) {
-      console.error(err.message);
-    },
-  });
+const handleImage = async (e: any, setImage: Function, setBase64Image: Function) => {
+	if (e.target.files.length > 6) {
+		return;
+	}
+	const file: any = e?.target.files;
+	setImage(file[0]);
+
+	new Compressor(file[0], {
+		quality: 0.3,
+		mimeType: 'image/jpeg',
+		success(result : Blob) {
+		const compressedFile = new File([result], file.name, {
+			type: result.type,
+			lastModified: Date.now(),
+		});
+		getBase64Image(compressedFile, setBase64Image);
+		},
+		error(err: any) {
+		console.error(err.message);
+		},
+	});
 };
 
 const validateTitle = (title: string, setOpenSnackbar: Function, setErrorMessage: Function) => {
@@ -154,7 +186,7 @@ const toTitleCase = (str: string) => {
 
 const submitNewEntry = async (
     data: any, image: Blob|null, setLoading: Function, setOpenSnackbar: Function,
-    clearAllFields: Function, setErrorMessage: Function) => {
+    clearAllFields: Function, setErrorMessage: Function, uploadImages: Array<any>) => {
 		const validation = validateAllInputs(data, image,
 			setOpenSnackbar, setErrorMessage);
 		if (validation) {
@@ -177,8 +209,11 @@ const submitNewEntry = async (
 				},
 				body: JSON.stringify({newEntry}),
 			});
+			const result = await response.json();
 			if (response.status == 201) {
-				clearAllFields();
+				console.log(result);
+				handleMultipleImageUpload(uploadImages, result.listingId);
+				// clearAllFields();
 				setLoading(false);
 			} else {
 				setLoading(false);
@@ -234,6 +269,7 @@ export {
   updateExistingEntry,
   handleImage,
   validateEmail,
+  handleMultipleImageUpload,
   TITLELIMIT,
   DESCRIPTIONLIMIT,
   GENERALLIMIT,

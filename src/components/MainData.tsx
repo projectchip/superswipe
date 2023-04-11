@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const MainData = () => {
-    const {data, query, filterCategroy, filterIndustry} = useDataAndFilterContext();
+    const {query, filterCategroy, filterIndustry} = useDataAndFilterContext();
     const [totalPages, setTotalPages] = useState(1);
     const [offset, setOffset] = useState(1);
     const [listings, setListings] = useState([]);

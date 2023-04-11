@@ -12,11 +12,13 @@ import {
   submitNewEntry,
   updateExistingEntry,
   handleImage,
+  handleMultipleImageUpload,
   TITLELIMIT,
   DESCRIPTIONLIMIT,
   GENERALLIMIT,
   SOURCEURL,
 } from '../util/inputValidation';
+import { useRouter } from 'next/router';
 
 const ListingForm = ({editItem}: {editItem: any}) => {
     const [loading, setLoading] = useState(false);
@@ -41,6 +43,15 @@ const ListingForm = ({editItem}: {editItem: any}) => {
             editItem ? editItem.url : '');
     const [image, setImage] = useState(null);
     const [base64Image, setBase64Image] = useState('');
+    const router = useRouter();
+    const [uploadImages, setUploadImages] = useState([]);
+    
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.push('/');
+        }
+    })
 
     const clearAllFields = () => {
         setShow(false);
@@ -75,7 +86,7 @@ const ListingForm = ({editItem}: {editItem: any}) => {
     return (
         <div id="new-listing-form-container" className={styles.listingFormDiv}>
             <div id="form-container" className={styles.formContainer}>
-                <h3>New Lising Form</h3>
+                <h3>New Listing Form</h3>
                 <form style={{display: 'flex', flexDirection: 'column'}}>
                     <TextField
                     id='formTitle'
@@ -211,16 +222,22 @@ const ListingForm = ({editItem}: {editItem: any}) => {
                     type='file'
                     placeholder='Image (max 3MB)'
                     required
+                    inputProps={{
+                        multiple: true,
+                        accept:["image/png", "image/gif", "image/jpeg"]
+                      }}
                     onChange={(event: any) => {
-                        handleImage(event, setImage, setBase64Image);
+                        if (event.target.files.length > 0 && event.target.files.length <= 6){
+                            setUploadImages(event.target.files);
+                            handleImage(event, setImage, setBase64Image);
+                        } else {
+                            setErrorMessage('Maximum of 6 pictures are allowed in a single upload');
+                            setOpenSnackbar(true);
+                        }
+                        // handleMultipleImageUpload(event, setErrorMessage, setOpenSnackbar);
                     }}
                     />
                 </form>
-                {
-                            image ?
-                            <Image alt='Selected Image' src={URL.createObjectURL(image)}
-                            style={{width: '100%'}}/> : null
-                }
                 <Button variant="primary" onClick={() => {
                     editItem ? handleUpdate() :
                     submitNewEntry({
@@ -234,10 +251,15 @@ const ListingForm = ({editItem}: {editItem: any}) => {
                         tags,
                         image: base64Image},
                     image, setLoading, setOpenSnackbar,
-                    clearAllFields, setErrorMessage);
+                    clearAllFields, setErrorMessage, uploadImages);
                 }}>
-                    Save Lising
+                    Save Listing
                 </Button>
+                {
+                    image ?
+                    <Image alt='Selected Image' src={URL.createObjectURL(image)}
+                    style={{width: '100%'}}/> : null
+                }
                 <SnackBar
                 openSnackbar={openSnackbar}
                 setOpenSnackbar={setOpenSnackbar}

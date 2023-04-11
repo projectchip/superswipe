@@ -19,7 +19,6 @@ const updateCategories = async (db: any, newCate: string) => {
     const formated = toTitleCase(newCate);
     const category: Array<any> = await db.collection('categories')
                                         .find({category: { $regex: formated, $options: "i" }}).toArray();
-    console.log(category, newCate);
     if(category.length == 0 ) {
         db.collection('categories').insertOne({category: formated});
     }
@@ -29,7 +28,6 @@ const updateIndustries = async (db: any, newIndustry: string) => {
     const formated = toTitleCase(newIndustry);
     const industry: Array<any> = await db.collection('industries')
                                         .find({industry: { $regex: formated, $options: "i" }}).toArray();
-    console.log(industry, newIndustry);
     if(industry.length == 0 ) {
         db.collection('industries').insertOne({industry: formated});
     }
@@ -42,9 +40,9 @@ const newEntry = async (req: NextApiRequest, res: NextApiResponse) => {
     const data = entry.newEntry;
     data.timestamp = new Date().toISOString();
     //   for (let i =0; i < 5; i++) {
-    await db.collection('data').insertOne(data);
+    const inserted = await db.collection('data').insertOne(data);
     //   }
-    res.status(201).json({message: 'Successful'});
+    res.status(201).json({listingId: inserted.insertedId, message: 'Successful'});
     await updateCategories(db, data.category);
     await updateIndustries(db, data.industry);
 };
