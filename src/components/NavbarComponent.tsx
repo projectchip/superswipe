@@ -48,6 +48,7 @@ const NavbarComponent = () => {
 						<button className="btn btn-outline-dark" color="warning"
 							onClick={() => {
 								localStorage.removeItem('token');
+								window.location.reload();
 								router.push('/');
 							}}
 						>Logout</button>

@@ -48,7 +48,7 @@ const ListingForm = ({editItem}: {editItem: any}) => {
     
     useEffect(()=>{
         const token = localStorage.getItem("token");
-        if (!token) {
+        if (!token || JSON.parse(token).role !== "admin") {
             router.push('/');
         }
     })
@@ -220,6 +220,7 @@ const ListingForm = ({editItem}: {editItem: any}) => {
                     <TextField
                     className={styles.entryformInput}
                     type='file'
+                    id='imageSelector'
                     placeholder='Image (max 3MB)'
                     required
                     inputProps={{
@@ -234,7 +235,6 @@ const ListingForm = ({editItem}: {editItem: any}) => {
                             setErrorMessage('Maximum of 6 pictures are allowed in a single upload');
                             setOpenSnackbar(true);
                         }
-                        // handleMultipleImageUpload(event, setErrorMessage, setOpenSnackbar);
                     }}
                     />
                 </form>

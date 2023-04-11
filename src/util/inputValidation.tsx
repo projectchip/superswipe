@@ -18,8 +18,6 @@ const getBase64Image = (file: any, setBase64Image: Function) => {
 };
 
 const handleMultipleImageUpload = (files: any, listingId: string) =>{
-	console.log('Total', files.length);
-	// const images = [];
 	for (const file of files) {
 		new Compressor(file, {
 			quality: 0.7,
@@ -211,7 +209,6 @@ const submitNewEntry = async (
 			});
 			const result = await response.json();
 			if (response.status == 201) {
-				console.log(result);
 				handleMultipleImageUpload(uploadImages, result.listingId);
 				// clearAllFields();
 				setLoading(false);

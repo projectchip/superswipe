@@ -74,3 +74,15 @@
     -webkit-box-orient: vertical;
     margin-bottom: 0;
 }
+
+.muiIcons {
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: -25px;
+    z-index: 999;
+    position: relative;
+    cursor: default;
+    width: 75px;
+    margin-left: 80%;
+    min-height: 30px;
+}

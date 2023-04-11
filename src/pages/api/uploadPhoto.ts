@@ -10,8 +10,6 @@ const uploadPhoto = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const data = req.body;
-        console.log('Inserted', data);
-
         const {db} = await connectToDatabase();
         await db.collection('photos').insertOne(data);
         res.status(201).json({message: 'Uploaded...'})

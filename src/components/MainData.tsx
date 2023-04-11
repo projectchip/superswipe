@@ -15,6 +15,7 @@ const MainData = () => {
     const [offset, setOffset] = useState(1);
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(true);
+    let requestSent = false;
 
     useEffect(()=>{
         document.title = 'Home';
@@ -27,13 +28,18 @@ const MainData = () => {
         setLoading(true);
         let newData: any = [];
         const startAt = (offset - 1) * 5;
-        for (let i=startAt; i < (startAt + 5); i++) {
-            const response = await sendRequest(i);
-            const result: any = await response.json();
-            newData = [...newData, ...result.data];
-            setListings(newData);
-            setLoading(false);
-            setTotalPages(result.total);
+        for (let i = startAt; i < startAt+5; i++) {
+            if (!requestSent) {
+                requestSent = true;
+                const response = await sendRequest(i);
+                const result: any = await response.json();
+                newData = [...newData, ...result.data];
+                setListings(newData);
+                setLoading(false);
+                setTotalPages(result.total);
+                requestSent = false;
+                if (result.data.length < 5) break;
+            }
         }
     };
 

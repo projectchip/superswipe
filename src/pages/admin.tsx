@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Admin = () => {
     const router = useRouter();
@@ -17,13 +19,16 @@ const Admin = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [show, setShow] = useState(true);
     const [authToken, setAuthToken] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         document.title = 'ADMIN';
         const token = localStorage.getItem('token');
         if (token) {
             router.push('/addListing')
-        }
+        } else {
+			setLoading(false);
+		}
 
         const signInBtn = document.getElementById('signup-signin-btn');
         signInBtn?.addEventListener('click', handleSignIn);
@@ -74,6 +79,12 @@ const Admin = () => {
 
     return (
         <>
+		{
+          	loading ? 
+            <Box sx={{display: 'flex', flexGrow: 1, justifyContent: 'center'}}>
+				<CircularProgress />
+			</Box>
+			:
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -128,6 +139,7 @@ const Admin = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+		}
         </>
     )
 };
