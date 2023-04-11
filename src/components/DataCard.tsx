@@ -45,7 +45,7 @@ const DataCard = ({data}: {data: any}) => {
             {
                 isAdmin ?
                 <div className={styles.muiIcons}>
-                    <ModeEditIcon color="primary" sx={{cursor:'pointer'}} />
+                    <ModeEditIcon color="primary" sx={{cursor:'pointer'}} onClick={() => {router.push(`/editListing?id=${data._id}`)}}/>
                     <DeleteForeverIcon color="error" sx={{cursor:'pointer'}} onClick={()=> handleShow()}/>
                 </div> : null
             }

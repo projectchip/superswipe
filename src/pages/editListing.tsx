@@ -1,16 +1,16 @@
 import Footer from "../components/Footer";
-import ListingForm from "../components/ListingForm";
+import EditForm from "../components/EditForm";
 import NavbarComponent from "../components/NavbarComponent";
 
-const addListing = () => {
+const editListing = () => {
+    
     return (
         <main>
             <NavbarComponent />
-            <ListingForm />
+            <EditForm />
             <Footer />
         </main>
     )
 }
 
-
-export default addListing;
+export default editListing;

@@ -11,10 +11,9 @@ const listingDetails = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const id: any = req.query.id;
         
-        if (id !== undefined) {
+        if (id != undefined) {
             const {db} = await connectToDatabase();
             const data = await db.collection('data').find({_id: new ObjectId(id)}).toArray();
-
             res.status(200).json(data);
         } else {
             res.status(404).json({message: "No Record Found"})

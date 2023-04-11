@@ -12,7 +12,6 @@ import {
   submitNewEntry,
   updateExistingEntry,
   handleImage,
-  handleMultipleImageUpload,
   TITLELIMIT,
   DESCRIPTIONLIMIT,
   GENERALLIMIT,
@@ -20,27 +19,19 @@ import {
 } from '../util/inputValidation';
 import { useRouter } from 'next/router';
 
-const ListingForm = ({editItem}: {editItem: any}) => {
+const ListingForm = () => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [show, setShow] = useState(false);
-    const [title, setTitle] = useState(
-            editItem ? editItem.title : '');
-    const [description, setDescription] = useState(
-            editItem ? editItem.description : '');
-    const [category, setCategory] = useState(
-            editItem ? editItem.category : '');
-    const [industry, setIndustry] = useState(
-            editItem ? editItem.industry : '');
-    const [author, setAuthor] = useState(
-            editItem ? editItem.author : '');
-    const [tags, setTags] = useState(
-            editItem ? editItem.tags : '');
-    const [source, setSource] = useState(
-            editItem ? editItem.source : '');
-    const [url, setUrl] = useState(
-            editItem ? editItem.url : '');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [industry, setIndustry] = useState('');
+    const [author, setAuthor] = useState('');
+    const [tags, setTags] = useState('');
+    const [source, setSource] = useState('');
+    const [url, setUrl] = useState('');
     const [image, setImage] = useState(null);
     const [base64Image, setBase64Image] = useState('');
     const router = useRouter();
@@ -67,21 +58,7 @@ const ListingForm = ({editItem}: {editItem: any}) => {
         setBase64Image('');
       };
     
-    const handleUpdate = async () => {
-        const result = await updateExistingEntry({
-            id: editItem._id,
-            title,
-            description,
-            author,
-            category,
-            industry,
-            source,
-            url,
-            tags,
-            image: base64Image}, image, setShow,
-        setLoading, setOpenSnackbar,
-        setErrorMessage);
-    }
+    
 
     return (
         <div id="new-listing-form-container" className={styles.listingFormDiv}>
@@ -239,7 +216,6 @@ const ListingForm = ({editItem}: {editItem: any}) => {
                     />
                 </form>
                 <Button variant="primary" onClick={() => {
-                    editItem ? handleUpdate() :
                     submitNewEntry({
                         title,
                         description,

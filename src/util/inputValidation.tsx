@@ -219,8 +219,8 @@ const submitNewEntry = async (
 };
 
 const updateExistingEntry = async (
-    data: any, image: Blob|null, setShow: Function, setLoading: Function, setOpenSnackbar: Function,
-    setErrorMessage: Function) => {
+    data: any, image: Blob|null, setLoading: Function, setOpenSnackbar: Function,
+    setErrorMessage: Function, uploadImages: Array<any>) => {
   const InputValidation = (
     validateTitle(data.title, setOpenSnackbar, setErrorMessage) &&
 		validateDescription(data.description, setOpenSnackbar, setErrorMessage) &&
@@ -231,22 +231,23 @@ const updateExistingEntry = async (
 		validateURL(data.url, setOpenSnackbar, setErrorMessage) &&
 		validateTags(data.tags, setOpenSnackbar, setErrorMessage));
 
-  const imageValidation = image ? validateImage(
-      data.image, image, setOpenSnackbar, setErrorMessage) : true;
+    const imageValidation = image ? validateImage(
+        data.image, image, setOpenSnackbar, setErrorMessage) : true;
+    
+    uploadImages.length > 0 ? handleMultipleImageUpload(uploadImages, data.id) : null;
 
   if (InputValidation && imageValidation) {
     setLoading(true);
     const updated = data;
-    const response = await fetch('/api/updateEntry', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({updated}),
+    const response = await fetch('/api/updateListing', {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({updated}),
     });
 
     if (response.status == 200) {
-      setShow(false);
       setLoading(false);
       return data;
     } else {
