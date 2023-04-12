@@ -8,8 +8,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import {Link} from '@mui/material';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import SignupForm from '../components/SignupForm';
 
 const Admin = () => {
     const router = useRouter();
@@ -20,6 +22,7 @@ const Admin = () => {
     const [show, setShow] = useState(true);
     const [authToken, setAuthToken] = useState('');
     const [loading, setLoading] = useState(true);
+	const [showSigninPage, setShowSinginPage] = useState(true);
 
     useEffect(()=>{
         document.title = 'ADMIN';
@@ -30,17 +33,19 @@ const Admin = () => {
 			setLoading(false);
 		}
 
-        const signInBtn = document.getElementById('signup-signin-btn');
-        signInBtn?.addEventListener('click', handleSignIn);
+        // const signInBtn = document.getElementById('signup-signin-btn');
+		// showSigninPage ?
+        // 	signInBtn?.addEventListener('click', handleSignIn)
+		// 	:
+		// 	signInBtn?.removeEventListener('click', handleSignIn);
     
-        return () => {
-          signInBtn?.removeEventListener('click', handleSignIn);
-        };
+        return;
       }, [email, password]);
 
     const handleClose = () => setShow(false);
 
     const handleSignIn = () => {
+		console.log('SING IN>>>>')
         if (!validateEmail(email)) {
           setErrorMessage('Please enter a valid Email');
           setOpenSnackbar(true);
@@ -98,44 +103,76 @@ const Admin = () => {
                     width={300} height={80} />
                 </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <div
-                        className={styles.signupFormDiv}
-                    >
-                        <h5 style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        color: 'blueviolet',
-                        fontFamily: 'Kumbh_Sans',
-                    }}>
-                        Welcome back! we missed you.</h5>
+                <Modal.Body style={{display: 'flex', flexDirection: 'column'}}>
+					{
+						showSigninPage ?
+						<div
+							className={styles.signupFormDiv}
+						>
+							<h5 style={{
+								display: 'flex',
+								justifyContent: 'center',
+								fontWeight: 'bold',
+								color: 'blueviolet',
+								fontFamily: 'Kumbh_Sans',
+							}}>
+								Welcome back! we missed you.</h5>
 
-                    <TextField
-                        className={styles.inputFields}
-                        required
-                        type='email'
-                        id="user-email"
-                        label="Email"
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <TextField
-                        className={styles.inputFields}
-                        required
-                        type='password'
-                        id="user-password"
-                        label="Password"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <SnackBar openSnackbar={openSnackbar}
-                        setOpenSnackbar={setOpenSnackbar} message={errorMessage}/>
-                </div>
+							<TextField
+								className={styles.inputFields}
+								required
+								type='email'
+								id="user-email"
+								label="Email"
+								placeholder="Email"
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							<TextField
+								className={styles.inputFields}
+								required
+								type='password'
+								id="user-password"
+								label="Password"
+								placeholder="Password"
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+							<SnackBar openSnackbar={openSnackbar}
+								setOpenSnackbar={setOpenSnackbar} message={errorMessage}/>
+						</div> :
+						<SignupForm handleClose={handleClose} setAuthToken={setAuthToken} />
+					}
+					<p style={{
+						margin: 0,
+						padding: 0,
+						marginTop: '25px',
+						alignSelf: 'center',
+						display: 'flex',
+						justifyContent: 'center',
+					}}
+					>
+						{
+						!showSigninPage ?
+							'Already have an account? To login' : 'To create an account'
+						}
+						<Link href='#'
+							style={{textDecoration: 'none', marginLeft: '5px'}}
+							onClick={() => setShowSinginPage(!showSigninPage)}>
+						<strong>click here</strong></Link>
+					</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button id='signup-signin-btn' type='submit' variant="primary">
-                        Sign In
+                    <Button id='cancel-signin-btn' type='button' variant="secondary"
+                      onClick={() => router.push('/')}>
+                        Cancel
+                    </Button>
+                    <Button id='signup-signin-btn' type='submit' variant="primary"
+						onClick={() => {
+							showSigninPage ? 
+							handleSignIn()
+							: null;
+						}}
+					>
+                        { showSigninPage ?  "Sign In" : "Sign Up"}
                     </Button>
                 </Modal.Footer>
             </Modal>

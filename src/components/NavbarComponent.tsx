@@ -14,12 +14,11 @@ const NavbarComponent = () => {
 		const token: any = localStorage.getItem('token');
 		if (token) {
 			setUserName(JSON.parse(token).name);
-			JSON.parse(token).role == 'admin' ? setShowLogOut(true) : setShowLogOut(false);
+			setShowLogOut(true)
 		};
 		const guest: any = localStorage.getItem('guest');
 		if (guest){
 			setUserName(JSON.parse(guest.name));
-			setShowLogOut(false);
 		};
 	}, []);
 	
@@ -49,7 +48,6 @@ const NavbarComponent = () => {
 							onClick={() => {
 								localStorage.removeItem('token');
 								window.location.reload();
-								router.push('/');
 							}}
 						>Logout</button>
 					: null

@@ -261,12 +261,31 @@ const validateEmail = (email: string) => {
   return email.trim().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 };
 
+const validateName = (name: string) => {
+  return (name.trim().match(/^([a-zA-Z'-. ]+)$/));
+};
+
+const validatePassword = (password: string) => {
+  let containSpecialChar = false;
+  const specialChars = ['!', '@', '$', '#', '%', '^', '&', '*'];
+  for (const char of specialChars) {
+    if (password.split('').includes(char)) {
+      containSpecialChar = true;
+      break;
+    }
+  }
+  return password.length >= 6 && containSpecialChar;
+};
+
+
 
 export {
   submitNewEntry,
   updateExistingEntry,
   handleImage,
   validateEmail,
+  validateName,
+  validatePassword,
   handleMultipleImageUpload,
   TITLELIMIT,
   DESCRIPTIONLIMIT,
