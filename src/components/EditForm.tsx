@@ -249,7 +249,7 @@ const EditForm = () => {
                             <Button variant="primary" onClick={() => {handleUpdate()}}>
                                 Update Listing
                             </Button>
-                            <Button variant="primary" onClick={() => {router.push("/")}}>
+                            <Button variant="primary" onClick={() => {router.push("/information?id="+queryId)}}>
                                 Cancel
                             </Button>
                         </div>

@@ -12,6 +12,7 @@ import getIndustries from '../pages/api/getIndustries';
 const FilterComponent = () => {
     const [categroyLabels, setCategoryLabels] = useState([]);
     const [industryLables, setIndustryLables] = useState([]);
+    const [search, setSearch] = useState('');
     const {
         query,
         setQueryString,
@@ -31,27 +32,10 @@ const FilterComponent = () => {
         setFilterCategory([]);
         setFilterIndustry([]);
         setQueryString('');
+        setSearch('');
     }
 
     let inputTimer: any;
-
-    // useEffect(() => {
-    //     getCategoriesLabels();
-    //     getIndustriesLabels();
-    // }, [])
-
-    // const getCategoriesLabels = async () => {
-    //     const response = await fetch('/api/getCategories');
-    //     const labels = await response.json();
-    //     setCategoryLabels(labels.data);
-    // }
-    // const getIndustriesLabels = async () => {
-    //     const response = await fetch('/api/getIndustries');
-    //     const labels = await response.json();
-    //     setIndustryLables(labels.data);
-    // }
-
-
 
     return (
         <>
@@ -74,14 +58,19 @@ const FilterComponent = () => {
                         label='Search'
                         placeholder='Search...'
                         id='search-field'
-                        // value={query}
+                        value={search}
+                        onBlur={(e) => {
+                            clearTimeout(inputTimer);
+                            setQueryString(e.target.value);
+                        }}
                         onKeyDown={() => {
                             clearTimeout(inputTimer)
                         }}
                         onChange={(e) => {
+                            setSearch(e.target.value);
                             inputTimer = setTimeout(() => {
                                 setQueryString(e.target.value);
-                            }, 2000)
+                            }, 3000)
                         }}
                     />
                 </div>

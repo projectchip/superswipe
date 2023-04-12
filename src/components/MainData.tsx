@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const MainData = () => {
+    const controller = new AbortController();
     const {query, filterCategroy, filterIndustry} = useDataAndFilterContext();
     const [totalPages, setTotalPages] = useState(1);
     const [offset, setOffset] = useState(1);
@@ -28,6 +29,7 @@ const MainData = () => {
         setLoading(true);
         let newData: any = [];
         const startAt = (offset - 1) * 5;
+        controller.abort();
         for (let i = startAt; i < startAt+5; i++) {
             if (!requestSent) {
                 requestSent = true;

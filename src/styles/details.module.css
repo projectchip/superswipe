@@ -24,3 +24,13 @@
     border-left: black 3px solid;
 }
 
+.muiIcons {
+    justify-content: space-around;
+    display: flex;
+    position: absolute;
+    cursor: default;
+    width: 100px;
+    min-height: 30px;
+    right: 10px;
+    top: 5px;
+}
