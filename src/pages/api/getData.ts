@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "@/src/util/mongoDb";
-import zlib from "zlib";
+import { gzipSync } from "zlib";
 
 export const config = {
   api: {
@@ -72,7 +72,7 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { data, total } = await getDataFromDb(req);
 
-    const content = zlib.gzipSync(JSON.stringify({ data, total }));
+    const content = gzipSync(JSON.stringify({ data, total }));
 
     // set response headers
     res.setHeader("Content-Encoding", "gzip");

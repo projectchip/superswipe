@@ -8,7 +8,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import zlib from 'zlib';
+import { gunzipSync } from "zlib";
+
 
 const MainData = () => {
     const controller = new AbortController();
@@ -33,7 +34,7 @@ const MainData = () => {
             requestSent = true;
             const response = await sendRequest(offset);
             const compressedData = await response.arrayBuffer()
-            const decompressedData = zlib.gunzipSync(Buffer.from(compressedData)).toString()
+            const decompressedData = gunzipSync(Buffer.from(compressedData)).toString()
             const jsonData = JSON.parse(decompressedData)
             setListings(jsonData.data);
             setLoading(false);
