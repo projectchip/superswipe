@@ -47,7 +47,7 @@ const MainData = () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Accept-Encoding': 'gzip',
+              'Accept-Encoding': 'deflate',
             },
             body: JSON.stringify({ query, offset: i, filterCategroy, filterIndustry }),
           });
