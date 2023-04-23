@@ -34,7 +34,7 @@ const MainData = () => {
             const response = await sendRequest(offset);
             const compressedData = await response.arrayBuffer()
             const decompressedData = zlib.gunzipSync(Buffer.from(compressedData)).toString()
-            const jsonData = JSON.parse(decompressedData.toString())
+            const jsonData = JSON.parse(decompressedData)
             setListings(jsonData.data);
             setLoading(false);
             setTotalPages(jsonData.total);
@@ -43,16 +43,14 @@ const MainData = () => {
     };
 
     const sendRequest = async (i: number) => {
-        return await (fetch(
-            `/api/getData`,
-            {
+        return await fetch(`/api/getData`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Content-Encoding': 'gzip',
+              'Content-Type': 'application/json',
+              'Accept-Encoding': 'gzip',
             },
-            body: JSON.stringify({query, offset: i, filterCategroy, filterIndustry})
-            }));
+            body: JSON.stringify({ query, offset: i, filterCategroy, filterIndustry }),
+          });
     }
 
     const handlePageOffset = (event: any, page: number) => {
