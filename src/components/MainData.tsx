@@ -8,6 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import zlib from 'zlib';
 
 const MainData = () => {
     const controller = new AbortController();
@@ -20,28 +21,24 @@ const MainData = () => {
 
     useEffect(()=>{
         document.title = 'Home';
-        getSearchResult(1);
+        getSearchResult(offset);
     }, [query, filterCategroy, filterIndustry])
 
     useEffect(()=>{}, [offset, totalPages]);
 
     const getSearchResult = async (offset: number) => {
         setLoading(true);
-        let newData: any = [];
-        const startAt = (offset - 1) * 5;
         controller.abort();
-        for (let i = startAt; i < startAt+5; i++) {
-            if (!requestSent) {
-                requestSent = true;
-                const response = await sendRequest(i);
-                const result: any = await response.json();
-                newData = [...newData, ...result.data];
-                setListings(newData);
-                setLoading(false);
-                setTotalPages(result.total);
-                requestSent = false;
-                if (result.data.length < 5) break;
-            }
+        if (!requestSent) {
+            requestSent = true;
+            const response = await sendRequest(offset);
+            const compressedData = await response.arrayBuffer()
+            const decompressedData = zlib.gunzipSync(Buffer.from(compressedData)).toString()
+            const jsonData = JSON.parse(decompressedData.toString())
+            setListings(jsonData.data);
+            setLoading(false);
+            setTotalPages(jsonData.total);
+            requestSent = false;
         }
     };
 
@@ -52,6 +49,7 @@ const MainData = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept-Encoding': 'gzip',
             },
             body: JSON.stringify({query, offset: i, filterCategroy, filterIndustry})
             }));

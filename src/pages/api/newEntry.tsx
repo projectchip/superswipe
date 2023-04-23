@@ -39,10 +39,9 @@ const newEntry = async (req: NextApiRequest, res: NextApiResponse) => {
     const entry = await req.body;
     const data = entry.newEntry;
     data.timestamp = new Date().toISOString();
-    //   for (let i =0; i < 5; i++) {
     const inserted = await db.collection('data').insertOne(data);
-    //   }
     res.status(201).json({listingId: inserted.insertedId, message: 'Successful'});
+    
     await updateCategories(db, data.category);
     await updateIndustries(db, data.industry);
 };

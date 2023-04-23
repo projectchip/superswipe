@@ -228,6 +228,7 @@ const ListingForm = () => {
                         image: base64Image},
                     image, setLoading, setOpenSnackbar,
                     clearAllFields, setErrorMessage, uploadImages);
+                    router.push('/')
                 }}>
                     Save Listing
                 </Button>
