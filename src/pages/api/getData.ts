@@ -60,7 +60,7 @@ const getDataFromDb = async (req: NextApiRequest) => {
     })
     .toArray();
 
-  total = total / RESULTSPERPAGE > 1 ? Math.ceil(total / RESULTSPERPAGE) : 1;
+  total = total / 20 > 1 ? Math.ceil(total / 20) : 1;
   return { data, total };
 };
 
@@ -71,17 +71,7 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { data, total } = await getDataFromDb(req);
-
-    const content = gzipSync(JSON.stringify({ data, total }));
-
-    // set response headers
-    res.setHeader("Content-Encoding", "gzip");
-    res.setHeader("Content-Type", "application/json");
-    // res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-
-    // send compressed data as response
-    res.status(200).send(content);
-    // res.status(200).json({ data, total });
+    res.status(200).json({ data, total });
   } catch (err) {
     res.status(500).json({ message: err });
   }

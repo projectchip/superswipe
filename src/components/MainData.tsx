@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { gunzipSync } from "zlib";
 
+// If wanted to try compressing again Commit ID - 18a0673e8618b1c77cc94496ba370bc13a302b24
 
 const MainData = () => {
     const controller = new AbortController();
@@ -22,24 +23,28 @@ const MainData = () => {
 
     useEffect(()=>{
         document.title = 'Home';
-        getSearchResult(offset);
+        getSearchResult(1);
     }, [query, filterCategroy, filterIndustry])
 
     useEffect(()=>{}, [offset, totalPages]);
 
     const getSearchResult = async (offset: number) => {
         setLoading(true);
+        let newData: any = [];
+        const startAt = (offset - 1) * 5;
         controller.abort();
-        if (!requestSent) {
-            requestSent = true;
-            const response = await sendRequest(offset);
-            const compressedData = await response.arrayBuffer()
-            const decompressedData = gunzipSync(Buffer.from(compressedData)).toString()
-            const jsonData = JSON.parse(decompressedData)
-            setListings(jsonData.data);
-            setLoading(false);
-            setTotalPages(jsonData.total);
-            requestSent = false;
+        // for (let i = startAt; i < startAt+5; i++) {
+            if (!requestSent) {
+                requestSent = true;
+                const response = await sendRequest(offset);
+                const result: any = await response.json();
+                newData = [...newData, ...result.data];
+                setListings(newData);
+                setLoading(false);
+                setTotalPages(result.total);
+                requestSent = false;
+                // if (result.data.length < 5) break;
+            // }
         }
     };
 
