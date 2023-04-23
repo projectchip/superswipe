@@ -2,10 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "@/src/util/mongoDb";
 import zlib from "zlib";
 
-if (zlib) {
-  console.log("YES");
-}
-
 export const config = {
   api: {
     responseLimit: "8mb",
@@ -81,7 +77,7 @@ const getData = async (req: NextApiRequest, res: NextApiResponse) => {
     // set response headers
     res.setHeader("Content-Encoding", "gzip");
     res.setHeader("Content-Type", "application/json");
-    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    // res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 
     // send compressed data as response
     res.status(200).send(content);
