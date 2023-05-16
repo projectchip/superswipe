@@ -16,6 +16,25 @@ const BodyComponent = () => {
     const [imagesLoading, setImagesLoading] = useState(true);
     // console.log(router.query.id);
 
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        const token = localStorage.getItem("token");
+
+        if (!token || JSON.parse(token).role !== "admin") {
+            if (accessToken) {
+            const {expiry} = JSON.parse(accessToken);
+            const currentDateTime = new Date();
+        
+            if (expiry<currentDateTime.toISOString()) {
+                localStorage.clear();
+                router.push('/')
+            }
+            } else {
+            router.push('/')
+            }
+        }
+    })
+
     useEffect(()=> {
         document.title = 'Listing Details';
         if (!queryId) {

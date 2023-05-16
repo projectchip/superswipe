@@ -43,11 +43,15 @@ const EditForm = () => {
     const [uploadImages, setUploadImages] = useState([]);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token || JSON.parse(token).role !== "admin") {
+            router.push('/');
+        }
+
         if (!queryId) {
             return;
         }
         getListingDetails();
-        console.log(router.query.id);
     }, [queryId]);
 
     const getListingDetails = async () => {
@@ -249,7 +253,7 @@ const EditForm = () => {
                             <Button variant="primary" onClick={() => {handleUpdate()}}>
                                 Update Listing
                             </Button>
-                            <Button variant="primary" onClick={() => {router.push("/information?id="+queryId)}}>
+                            <Button variant="warning" onClick={() => {router.push("/information?id="+queryId)}}>
                                 Cancel
                             </Button>
                         </div>

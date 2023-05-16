@@ -37,12 +37,11 @@ const Footer = () => {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: '175px'
                 }}>
-                    Follow us: 
+                    {/* Follow us: 
                     <TwitterIcon color='primary' />
                     <InstagramIcon color='primary' />
-                    <FacebookIcon color='primary' />
+                    <FacebookIcon color='primary' /> */}
                 </div>
             </div>
             

@@ -25,13 +25,13 @@ const Admin = () => {
 	const [showSigninPage, setShowSinginPage] = useState(true);
 
     useEffect(()=>{
-        document.title = 'ADMIN';
-        const token = localStorage.getItem('token');
-        if (token) {
-            router.push('/addListing')
-        } else {
-			setLoading(false);
-		}
+      document.title = 'ADMIN';
+      const token = localStorage.getItem('token');
+      if (token) {
+          router.push('/addListing')
+      } else {
+        setLoading(false);
+      }
 
         // const signInBtn = document.getElementById('signup-signin-btn');
 		// showSigninPage ?

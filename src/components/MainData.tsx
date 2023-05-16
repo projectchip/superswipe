@@ -19,6 +19,9 @@ const MainData = () => {
     let requestSent = false;
 
     useEffect(()=>{
+
+        
+
         document.title = 'Home';
         getSearchResult(1);
     }, [query, filterCategroy, filterIndustry])

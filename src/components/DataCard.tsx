@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from '../styles/dataCard.module.css'
 import { Image } from "react-bootstrap";
 import Link from 'next/link';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useRouter } from "next/router";
 
 const DataCard = ({data}: {data: any}) => {
     return (

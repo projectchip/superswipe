@@ -33,7 +33,7 @@ const NavbarComponent = () => {
 						<Image src={'/SuperSwipeLogo.png'}
 						alt='LOGO' width={200} height={40}/>
 					</Navbar.Brand>
-					<Nav.Link href="/">Home</Nav.Link>
+					<Nav.Link href="/home">Home</Nav.Link>
 					</span>
 					<Navbar.Toggle aria-controls="navbarScroll" />
 				</Container>
