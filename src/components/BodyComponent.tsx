@@ -14,7 +14,6 @@ const BodyComponent = () => {
     const [photos, setPhotos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imagesLoading, setImagesLoading] = useState(true);
-    // console.log(router.query.id);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');

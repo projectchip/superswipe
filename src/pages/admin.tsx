@@ -45,7 +45,6 @@ const Admin = () => {
     const handleClose = () => setShow(false);
 
     const handleSignIn = () => {
-		console.log('SING IN>>>>')
         if (!validateEmail(email)) {
           setErrorMessage('Please enter a valid Email');
           setOpenSnackbar(true);

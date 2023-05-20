@@ -28,7 +28,6 @@ const SignupForm = ({handleClose, setAuthToken}: {handleClose: Function, setAuth
   }, [name, email, password]);
 
   const handleSignUp = () => {
-    console.log('SING UP>>>>')
     if (!validateName(name)) {
       if (name.length > 0) {
         setErrorMessage('Please enter a valid name (Alphabets Only)');
@@ -69,7 +68,6 @@ const SignupForm = ({handleClose, setAuthToken}: {handleClose: Function, setAuth
 
     const outcome = await response.json();
     if (response.status == 201 && outcome.message === 'Successful') {
-      console.log(outcome);
       localStorage.setItem('token', JSON.stringify(outcome.token));
       setAuthToken(outcome.token);
       handleClose();

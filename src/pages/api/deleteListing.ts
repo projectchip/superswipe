@@ -8,7 +8,6 @@ const deleteListing = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
     }
     try {
-        console.log(req.headers.authorization);
         const {db} = await connectToDatabase();
         const id: any = req.query.id;
         db.collection('data').deleteOne({_id: new ObjectId(id)});
