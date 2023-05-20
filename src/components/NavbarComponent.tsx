@@ -29,7 +29,7 @@ const NavbarComponent = () => {
 					<span style={{
 					display: 'flex', flexDirection: 'row', alignItems: 'center',
 					}}>
-					<Navbar.Brand href="/">
+					<Navbar.Brand href="/home">
 						<Image src={'/SuperSwipeLogo.png'}
 						alt='LOGO' width={200} height={40}/>
 					</Navbar.Brand>
