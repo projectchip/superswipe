@@ -95,10 +95,10 @@ export default function Home() {
               style={{
                 marginBottom: '15px'
               }}
-              sx={{borderRadius: '20px'}}
+              sx={{borderRadius: '20px', backgroundColor: 'white'}}
               inputProps={{
                 min: 0,
-                style: { textAlign: 'center', fontSize: 'xx-large'}
+                style: { textAlign: 'center', fontSize: 'xx-large', backgroundColor: 'white'}
               }}
               label="Password"
               type='password'
